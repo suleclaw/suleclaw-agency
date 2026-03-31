@@ -68,13 +68,6 @@ function SpotlightCard({
                 {project.started}
               </span>
             </div>
-            <div className="w-8 h-8 rounded-lg bg-bg-subtle border border-border-default
-                          flex items-center justify-center
-                          transition-all duration-300 group-hover:border-accent/30">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-text-muted">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </div>
           </div>
 
           {/* Description */}

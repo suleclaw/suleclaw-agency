@@ -131,22 +131,6 @@ export function HowWeWork() {
                       </p>
                     </div>
                   </AccordionContent>
-
-                  {/* Expand indicator */}
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full
-                               border border-border-default flex items-center justify-center
-                               data-[state=open]:border-accent data-[state=open]:bg-accent/10
-                               transition-all duration-300">
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 10 10"
-                      fill="none"
-                      className="text-text-muted data-[state=open]:text-accent transition-colors duration-300"
-                    >
-                      <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
                 </AccordionItem>
               </motion.div>
             ))}

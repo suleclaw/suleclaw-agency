@@ -104,7 +104,7 @@ export function Hero() {
 
         {/* Main Headline */}
         <h1
-          className="font-headline font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-text-primary
+          className="font-headline font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-text-primary
                    leading-[1.05] tracking-tight mb-10"
           style={{ perspective: "1000px" }}
         >
