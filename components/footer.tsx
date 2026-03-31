@@ -18,36 +18,52 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 px-6 border-t border-[#27272A]">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Logo + tagline */}
-        <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="font-headline font-bold text-base text-[#FAFAFA]"
-          >
-            SuleClaw
-          </Link>
-          <span className="hidden sm:inline text-[#52525B]">—</span>
-          <span className="font-mono text-xs text-[#52525B] border border-[#27272A] px-2 py-0.5 rounded">
-            Built with AI agents
-          </span>
-        </div>
+    <footer className="py-10 px-6 border-t border-border-default/50 relative overflow-hidden">
+      {/* Subtle gradient accent */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(245,158,11,0.3), transparent)",
+        }}
+      />
 
-        {/* Right side */}
-        <div className="flex items-center gap-6">
-          <Link
-            href="https://github.com/suleclaw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#A1A1AA] hover:text-[#FAFAFA] transition-colors"
-            aria-label="GitHub"
-          >
-            <GitHubIcon className="w-5 h-5" />
-          </Link>
-          <span className="text-sm text-[#52525B]">
-            &copy; {currentYear} SuleClaw Agency
-          </span>
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Logo + tagline */}
+          <div className="flex items-center gap-6">
+            <Link
+              href="/"
+              className="font-headline font-bold text-lg text-text-primary hover:text-accent transition-colors duration-300"
+            >
+              Sule<span className="text-accent">Claw</span>
+            </Link>
+
+            <div className="hidden sm:block w-px h-4 bg-border-default" />
+
+            <span className="font-mono text-xs text-text-muted border border-border-default/50 px-3 py-1 rounded-full">
+              Built with AI agents
+            </span>
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-6">
+            <Link
+              href="https://github.com/suleclaw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors duration-300"
+              aria-label="GitHub"
+            >
+              <GitHubIcon className="w-5 h-5" />
+              <span className="text-sm font-medium">GitHub</span>
+            </Link>
+
+            <div className="w-px h-4 bg-border-default" />
+
+            <span className="text-sm text-text-muted">
+              &copy; {currentYear} SuleClaw Agency
+            </span>
+          </div>
         </div>
       </div>
     </footer>

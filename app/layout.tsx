@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Syne } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import { Syne } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 const syne = Syne({
@@ -33,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${syne.variable}`}>
-      <body className="min-h-full flex flex-col bg-[#0A0A0B] text-[#FAFAFA] antialiased">
+    <html lang="en" className={`${instrumentSans.variable} ${jetbrainsMono.variable} ${syne.variable}`}>
+      <body className="min-h-full flex flex-col antialiased">
         {children}
       </body>
     </html>
