@@ -32,16 +32,13 @@ export async function sendContactEmail(
   const smtpPort = process.env.SMTP_PORT;
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const contactEmail = process.env.CONTACT_EMAIL || "damiuxcodes@gmail.com";
+  const contactEmail = process.env.CONTACT_EMAIL;
+  if (!contactEmail) {
+    return { error: "Contact email not configured. Please set CONTACT_EMAIL environment variable." };
+  }
 
   if (!smtpHost || !smtpUser || !smtpPass) {
-    // In development without SMTP, log and return success
-    console.log("Contact form submission (SMTP not configured):", {
-      name,
-      email,
-      projectType,
-      message,
-    });
+    // In development without SMTP configured, return success
     return { success: true };
   }
 

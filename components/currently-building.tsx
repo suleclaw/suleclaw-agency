@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useRef, useState } from "react";
 
 const projects = [
   {
@@ -29,15 +30,28 @@ function SpotlightCard({
   index: number;
 }) {
   const prefersReducedMotion = useReducedMotion();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: "50%", y: "50%" });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current || prefersReducedMotion) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = `${(((e.clientX - rect.left) / rect.width) * 100).toFixed(1)}%`;
+    const y = `${(((e.clientY - rect.top) / rect.height) * 100).toFixed(1)}%`;
+    setMousePosition({ x, y });
+  };
 
   return (
     <motion.div
+      ref={cardRef}
       initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         delay: prefersReducedMotion ? 0 : index * 0.15,
         duration: 0.5,
       }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setMousePosition({ x: "50%", y: "50%" })}
       className="relative bg-[#111113] border border-[#27272A] rounded-xl p-6 card-hover group overflow-hidden"
     >
       {/* Spotlight effect */}
@@ -46,7 +60,7 @@ function SpotlightCard({
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245,158,11,0.08) 0%, transparent 60%)",
+              `radial-gradient(circle 200px at ${mousePosition.x} ${mousePosition.y}, rgba(245,158,11,0.08) 0%, transparent 60%)`,
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
