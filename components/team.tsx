@@ -46,50 +46,84 @@ export function Team() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="py-24 px-6 border-t border-border-default" id="team">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn delay={0} direction="up" once>
-          <div className="text-center mb-16">
-            <h2 className="font-headline font-bold text-3xl sm:text-4xl md:text-5xl text-text-primary leading-tight mb-4">
+    <section className="py-32 px-6 relative overflow-hidden border-t border-border-default/50" id="team">
+      {/* Background decoration */}
+      <div
+        className="absolute top-1/4 left-0 w-[400px] h-[400px] opacity-20"
+        style={{
+          background: "radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section header */}
+        <div className="text-center mb-20">
+          <FadeIn delay={0} direction="up" once>
+            <span className="text-xs font-mono text-accent uppercase tracking-widest mb-4 block">
+              The Team
+            </span>
+          </FadeIn>
+          <FadeIn delay={0.1} direction="up" once>
+            <h2 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl text-text-primary leading-tight mb-6">
               The team behind SuleClaw
             </h2>
+          </FadeIn>
+          <FadeIn delay={0.2} direction="up" once>
             <p className="text-lg text-text-secondary max-w-lg mx-auto">
               Humans and agents, working together. No silos, no hierarchy.
             </p>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        </div>
 
+        {/* Team grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {teamMembers.map((member, index) => (
             <FadeIn key={member.name} delay={index * 0.08} direction="up" once>
               <motion.div
-                whileHover={prefersReducedMotion ? {} : { y: -4, transition: { duration: 0.2 } }}
-                className="bg-bg-surface border border-border-default rounded-xl p-6 text-center
-                         transition-all duration-300 ease-out
-                         hover:border-border-strong hover:bg-bg-surface-hover
-                         hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]
-                         group"
+                whileHover={prefersReducedMotion ? {} : {
+                  y: -8,
+                  transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
+                }}
+                className="group relative"
               >
-                {/* Icon */}
-                <div className="text-5xl mb-4 transition-transform duration-300 group-hover:scale-110">
-                  {member.icon}
+                <div className="relative bg-bg-surface rounded-2xl p-8
+                             border border-border-default/50 overflow-hidden
+                             transition-all duration-500 ease-out
+                             hover:border-accent/30 hover:bg-bg-surface-hover
+                             glow-border corner-brackets">
+
+                  {/* Decorative corner elements */}
+                  <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden pointer-events-none">
+                    <div className="absolute top-2 left-2 w-4 h-px bg-accent/0 group-hover:bg-accent/50 transition-all duration-500" />
+                    <div className="absolute top-2 left-2 w-px h-4 bg-accent/0 group-hover:bg-accent/50 transition-all duration-500" />
+                  </div>
+
+                  {/* Icon */}
+                  <div className="text-5xl mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                    {member.icon}
+                  </div>
+
+                  {/* Name */}
+                  <h3 className="font-headline font-bold text-lg text-text-primary mb-1
+                               transition-colors duration-300 group-hover:text-white">
+                    {member.name}
+                  </h3>
+
+                  {/* Role */}
+                  <p className="text-xs font-mono text-accent uppercase tracking-widest mb-4">
+                    {member.role}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {member.description}
+                  </p>
+
+                  {/* Bottom line accent */}
+                  <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-border-default to-transparent
+                               group-hover:via-accent/30 transition-all duration-500" />
                 </div>
-
-                {/* Name */}
-                <h3 className="font-semibold text-base text-text-primary mb-1
-                             transition-colors duration-300 group-hover:text-white">
-                  {member.name}
-                </h3>
-
-                {/* Role */}
-                <p className="font-mono text-xs uppercase tracking-widest text-text-muted mb-3">
-                  {member.role}
-                </p>
-
-                {/* Description */}
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {member.description}
-                </p>
               </motion.div>
             </FadeIn>
           ))}
