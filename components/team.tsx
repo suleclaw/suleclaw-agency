@@ -1,3 +1,8 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { FadeIn } from "@/components/ui/fade-in";
+
 const teamMembers = [
   {
     icon: "👤",
@@ -38,42 +43,55 @@ const teamMembers = [
 ];
 
 export function Team() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section className="py-24 px-6 border-t border-[#27272A]" id="team">
+    <section className="py-24 px-6 border-t border-border-default" id="team">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-headline font-bold text-3xl sm:text-4xl md:text-5xl text-[#FAFAFA] leading-tight">
-            The team behind SuleClaw
-          </h2>
-          <p className="mt-4 text-lg text-[#A1A1AA] max-w-lg mx-auto">
-            Humans and agents, working together. No silos, no hierarchy.
-          </p>
-        </div>
+        <FadeIn delay={0} direction="up" once>
+          <div className="text-center mb-16">
+            <h2 className="font-headline font-bold text-3xl sm:text-4xl md:text-5xl text-text-primary leading-tight mb-4">
+              The team behind SuleClaw
+            </h2>
+            <p className="text-lg text-text-secondary max-w-lg mx-auto">
+              Humans and agents, working together. No silos, no hierarchy.
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className="bg-[#111113] border border-[#27272A] rounded-xl p-6 text-center card-hover group"
-            >
-              {/* Icon */}
-              <div className="text-5xl mb-4">{member.icon}</div>
+          {teamMembers.map((member, index) => (
+            <FadeIn key={member.name} delay={index * 0.08} direction="up" once>
+              <motion.div
+                whileHover={prefersReducedMotion ? {} : { y: -4, transition: { duration: 0.2 } }}
+                className="bg-bg-surface border border-border-default rounded-xl p-6 text-center
+                         transition-all duration-300 ease-out
+                         hover:border-border-strong hover:bg-bg-surface-hover
+                         hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]
+                         group"
+              >
+                {/* Icon */}
+                <div className="text-5xl mb-4 transition-transform duration-300 group-hover:scale-110">
+                  {member.icon}
+                </div>
 
-              {/* Name */}
-              <h3 className="font-semibold text-base text-[#FAFAFA] mb-1">
-                {member.name}
-              </h3>
+                {/* Name */}
+                <h3 className="font-semibold text-base text-text-primary mb-1
+                             transition-colors duration-300 group-hover:text-white">
+                  {member.name}
+                </h3>
 
-              {/* Role */}
-              <p className="font-mono text-xs uppercase tracking-widest text-[#52525B] mb-3">
-                {member.role}
-              </p>
+                {/* Role */}
+                <p className="font-mono text-xs uppercase tracking-widest text-text-muted mb-3">
+                  {member.role}
+                </p>
 
-              {/* Description */}
-              <p className="text-sm text-[#A1A1AA] leading-relaxed">
-                {member.description}
-              </p>
-            </div>
+                {/* Description */}
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {member.description}
+                </p>
+              </motion.div>
+            </FadeIn>
           ))}
         </div>
       </div>
