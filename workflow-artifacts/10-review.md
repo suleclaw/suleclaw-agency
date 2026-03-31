@@ -1,7 +1,7 @@
-# Code Review — `feat/enhance-aceternity-effects`
+# Code Review — `feat/creative-redesign`
 
 **Repo:** `/root/.openclaw/workspace/suleclaw-agency`
-**Branch:** `feat/enhance-aceternity-effects`
+**Branch:** `feat/creative-redesign`
 **Reviewer:** code-review-js
 **Date:** 2026-03-31
 
@@ -21,84 +21,125 @@
 
 | Check | Result |
 |---|---|
-| Hardcoded credentials | ✅ None found |
-| `console.log` in client code | ✅ None found |
+| Hardcoded credentials | ✅ None found — SMTP credentials read from `process.env` in `actions/contact.ts` |
+| `console.log` in source code | ✅ None found |
 | Server-side `console.error` in `actions/contact.ts` | ✅ Acceptable — server action error logging, appropriate pattern |
-| Environment variable usage | ✅ Correct — SMTP credentials read from `process.env`, graceful fallback when unconfigured |
+| XSS in contact form | ✅ Safe — `message.replace(/</g, "&lt;").replace(/>/g, "&gt;")` applied in email HTML |
 
 ---
 
-## Aceternity UI Components — All Present & Working
+## Visual Effects — Build Quality
 
-| Component | Location | `prefers-reduced-motion` | Notes |
+| Component | File | Status | Notes |
 |---|---|---|---|
-| `Magnetic` | `components/ui/magnetic.tsx` | ✅ Respected — returns static `div` when enabled | Custom framer-motion implementation, spring physics (stiffness:150, damping:15) |
-| `Spotlight` | `components/ui/spotlight.tsx` | ✅ Respected — no effect rendered when enabled | Radial gradient follows cursor on hover, amber color |
-| `FadeIn` | `components/ui/fade-in.tsx` | ✅ Respected — no animation, instant visible | Direction variants (up/down/left/right/none), delay/duration configurable |
-| `FadeInStagger` | `components/ui/fade-in.tsx` | ✅ Respected — stagger disabled | Stagger children with configurable delay |
-| `TextAnimate` | `components/ui/text-animate.tsx` | ✅ Respected — returns static `span` | Per-word or per-character, `rotateX` entrance |
-| Hero word animation | `components/hero.tsx` | ✅ Respected — static inline text when enabled | Custom stagger implementation with `useReducedMotion` |
+| `Magnetic` | `components/ui/magnetic.tsx` | ✅ | Spring physics (stiffness:150, damping:15, mass:0.1), `prefers-reduced-motion` respected — returns static div |
+| `Spotlight` | `components/ui/spotlight.tsx` | ✅ | Radial gradient follows cursor, `prefers-reduced-motion` respected |
+| `FadeIn` / `FadeInStagger` | `components/ui/fade-in.tsx` | ✅ | `useReducedMotion` used throughout, instant visible fallback |
+| `TextAnimate` | `components/ui/text-animate.tsx` | ✅ | `prefers-reduced-motion` returns static `<span>` |
+| Hero | `components/hero.tsx` | ✅ | Custom stagger animation, `prefers-reducedMotion` respected — static inline text when enabled |
+| Atmosphere glows | `components/hero.tsx` | ✅ | CSS `radial-gradient` amber glows, no JS required |
+| Floating geometric accents | `components/hero.tsx` | ✅ | Framer Motion `animate`, `prefers-reduced-motion` respected |
+| Scroll indicator | `components/hero.tsx` | ✅ | `prefers-reduced-motion` respected — no animation when disabled |
+| Contact form | `components/contact-form.tsx` | ✅ | `useActionState` with `sendContactEmail` server action, success/error states |
 
 ---
 
-## Animation Quality
+## `prefers-reduced-motion` Support
 
-- **Easing:** All animations use `cubic-bezier(0.4, 0, 0.2, 1)` — smooth, purposeful, no linear easing
-- **Magnetic:** Spring physics (stiffness:150, damping:15, mass:0.1) — feels tactile, not robotic
-- **Entrance stagger:** 80–150ms between items — fast enough to feel snappy, slow enough to register
-- **Hover states:** 200–300ms transitions — restrained, not distracting
-- **No ambient/looping animations:** ✅ Confirmed — spec rule honored
-- **No jank vectors:** All transforms are `translate`/`scale`/`rotate`-based, GPU-composited
+All animation components use `useReducedMotion()` from `framer-motion`:
+
+| Component | Strategy |
+|---|---|
+| `Magnetic` | Returns plain `<div>` instead of `motion.div` |
+| `Spotlight` | Skips spotlight div render, still renders children |
+| `FadeIn` / `FadeInStagger` | Instant opacity:1, no translate |
+| `TextAnimate` | Returns static `<span>` with text |
+| Hero word animation | Returns static inline text |
+| Hero scroll indicator | No `animate` prop passed |
+| CSS animations (globals.css) | `@media (prefers-reduced-motion: reduce)` disables `.animate-fade-in-up`, `.animate-fade-in-scale`, `.animate-slide-in-left`, `.animate-float`, `.gradient-text` |
 
 ---
 
-## Design Fidelity — Amber on Near-Black
+## Fonts — ❌ ISSUE FOUND
 
-| Element | Spec | Implementation | Status |
-|---|---|---|---|
-| `--bg-base` | `#0A0A0B` | `#0A0A0B` hardcoded in globals.css and layout | ✅ |
-| `--accent-primary` | `#F59E0B` | `#F59E0B` in globals.css `--color-accent` | ✅ |
-| `--text-primary` | `#FAFAFA` | `#FAFAFA` in globals.css | ✅ |
-| `--border-default` | `#27272A` | `#27272A` in globals.css | ✅ |
-| Typography (Syne) | Headlines | `font-syne` via next/font/google | ✅ |
-| Typography (Geist) | Body/UI | `font-geist-sans` via next/font/google | ✅ |
-| Typography (Geist Mono) | Meta/code | `font-geist-mono` via next/font/google | ✅ |
-| Hero amber glow | Radial gradient at center | `rgba(245,158,11,0.1)` background radial | ✅ |
-| Magnetic CTA | Magnetic button, amber | `Magnetic` + `bg-accent` | ✅ |
-| Spotlight on project cards | Amber glow follows cursor | `Spotlight` with amber color | ✅ |
-| `prefers-reduced-motion` | Disable all animations | `useReducedMotion` in all components + CSS media query | ✅ |
+**Missing `Syne` font load in `app/layout.tsx`.**
+
+The `globals.css` defines:
+```css
+--font-heading: var(--font-syne);
+.font-headline {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+.deco-number {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+```
+
+But `app/layout.tsx` only loads:
+- `Instrument_Sans` → `--font-instrument-sans`
+- `JetBrains_Mono` → `--font-jetbrains-mono`
+
+The `Syne` font is **never loaded**, so all `.font-headline` and `.deco-number` elements fall back to `system-ui, sans-serif` instead of the intended Syne display font.
+
+**Fix:** Add to `app/layout.tsx`:
+```ts
+import { Syne } from "next/font/google";
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+```
+And include `${syne.variable}` in the `html` `className`.
+
+---
+
+## Contact Form
+
+- Server action: `actions/contact.ts` — validates inputs, sanitizes message for HTML email, uses nodemailer
+- Client form: `components/contact-form.tsx` — `useActionState`, success/error states, disabled state during submission
+- Environment variables checked at runtime — graceful fallback (returns `{success: true}`) when SMTP is unconfigured
+- XSS protection: `message.replace(/</g, "&lt;").replace(/>/g, "&gt;")` before inserting into HTML email body
+
+---
+
+## Contact Page
+
+- `app/contact/page.tsx` — new route, imports `ContactForm`, clean layout
 
 ---
 
 ## Minor Notes
 
 ### Workspace lockfile warning (non-blocking)
-Next.js warns about multiple `package-lock.json` files in the workspace:
 ```
 We detected multiple lockfiles and selected the directory of /root/.openclaw/workspace/package-lock.json as the root directory.
 ```
-The build still succeeds. To silence: set `turbopack.root` in `next.config.ts` or ensure only one lockfile at project root. **Not a blocker.**
+Build still succeeds. Next.js 16 Turbopack warning about dual lockfiles. Can be silenced by setting `turbopack.root` in `next.config.ts`.
 
-### Hero uses custom word animation (not `TextAnimate`)
-The hero section implements its own staggered word-by-word animation in `components/hero.tsx` rather than using the `TextAnimate` component. This is a deliberate design choice — the hero animation has a custom `rotateX` curve that differs from the standard `TextAnimate` component. Works correctly with `prefers-reduced-motion`.
+### New pages/routes
+| Route | Status |
+|---|---|
+| `/` | ✅ Static, prerendered |
+| `/contact` | ✅ Static, prerendered |
 
-### `Badge` component exists but isn't used
-`components/ui/badge.tsx` defines a shadcn-style `Badge` component, but the project cards in `currently-building.tsx` use inline `<span>` tags for tech badges. This is fine — the custom inline styles match the design spec exactly.
+### Badge component unused
+`components/ui/badge.tsx` is defined but not imported anywhere. Not a bug — just dead code. Can be removed or used.
 
 ---
 
 ## Issues Found
 
-**None.** The implementation is clean, production-ready, and matches the design spec.
+1. **[BUG — Missing Syne font]** `app/layout.tsx` does not load the `Syne` font, but `globals.css` references `var(--font-syne)` for `.font-headline` and `.deco-number`. Headlines will render with `system-ui` fallback instead of Syne.
 
 ---
 
 ## Auto-Fixes Applied
 
-**None required.** No issues found.
+**None.** The Syne font issue requires a code change to `app/layout.tsx`.
 
 ---
 
-## Quality Gate: ✅ PASS
+## Quality Gate: ⚠️ FAIL (1 issue)
 
-All three pre-push checks pass. Code is clean, design faithful, animations smooth with proper `prefers-reduced-motion` support throughout.
+Build passes but **Syne font is missing** — `.font-headline` elements will render with incorrect font. This is a functional bug, not cosmetic. The font needs to be loaded in the layout before merging.
