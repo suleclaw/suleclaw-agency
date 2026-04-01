@@ -1,161 +1,66 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { CardStack } from "@/components/ui/card-stack";
 
 const teamMembers = [
   {
+    id: 0,
     icon: "👤",
     name: "Dami O'",
-    role: "Founder & Lead Engineer",
-    description: "Edinburgh-based engineer. Builds in public, ships fast.",
+    designation: "Founder & Lead Engineer",
+    content: "Edinburgh-based engineer. Builds in public, ships fast.",
   },
   {
+    id: 1,
     icon: "🦊",
     name: "Sule (Orchestrator)",
-    role: "Coordinates the team",
-    description: "Manages workflow, assigns tasks, keeps everything on track.",
+    designation: "Coordinates the team",
+    content: "Manages workflow, assigns tasks, keeps everything on track.",
   },
   {
+    id: 2,
     icon: "💻",
     name: "Frontend Dev",
-    role: "UI & Component Specialist",
-    description: "React, Next.js, animations. Makes interfaces feel alive.",
+    designation: "UI & Component Specialist",
+    content: "React, Next.js, animations. Makes interfaces feel alive.",
   },
   {
+    id: 3,
     icon: "⚙️",
     name: "Backend Dev",
-    role: "API & Service Specialist",
-    description: "Node, Python, Go, Rust. Whatever the job needs.",
+    designation: "API & Service Specialist",
+    content: "Node, Python, Go, Rust. Whatever the job needs.",
   },
   {
+    id: 4,
     icon: "🔍",
     name: "QA Agent",
-    role: "Browser Testing & Bug Reporting",
-    description: "Catches what slips through. Writes it up clearly.",
+    designation: "Browser Testing & Bug Reporting",
+    content: "Catches what slips through. Writes it up clearly.",
   },
   {
+    id: 5,
     icon: "🏗️",
     name: "Architect",
-    role: "System Design",
-    description: "Thinks three steps ahead. Keeps systems coherent.",
+    designation: "System Design",
+    content: "Thinks three steps ahead. Keeps systems coherent.",
   },
 ];
 
-const VISIBLE = 3;
-const OFFSET = 14;
-const SCALE_FACTOR = 0.05;
-const INTERVAL_MS = 3500;
-
-function TeamCard({
-  member,
-  index,
-  total,
-}: {
-  member: (typeof teamMembers)[0];
-  index: number;
-  total: number;
-}) {
-  return (
-    <motion.div
-      className="absolute inset-0 w-full"
-      style={{ zIndex: total - index }}
-      animate={{
-        top: index * OFFSET,
-        scale: 1 - index * SCALE_FACTOR,
-        opacity: index >= VISIBLE ? 0 : 1,
-      }}
-      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-    >
-      <div
-        className="relative w-full h-full rounded-2xl p-8 overflow-hidden
-                     bg-bg-surface border border-border-default/50
-                     transition-all duration-500
-                     hover:border-accent/30 hover:bg-bg-surface-hover
-                     glow-border"
-      >
-        {/* Decorative corner accent */}
-        <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden pointer-events-none">
-          <div className="absolute top-2 left-2 w-4 h-px bg-accent/30" />
-          <div className="absolute top-2 left-2 w-px h-4 bg-accent/30" />
-        </div>
-
-        {/* Icon */}
-        <div className="text-5xl mb-5">{member.icon}</div>
-
-        {/* Name + Role */}
-        <h3 className="font-headline font-bold text-xl text-text-primary mb-1">
-          {member.name}
-        </h3>
-        <p className="text-xs font-mono text-accent uppercase tracking-widest mb-3">
-          {member.role}
-        </p>
-
-        {/* Description */}
-        <p className="text-sm text-text-secondary leading-relaxed">
-          {member.description}
-        </p>
-
-        {/* Bottom accent */}
-        <div className="absolute bottom-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-border-default to-transparent" />
-      </div>
-    </motion.div>
-  );
-}
-
-function TeamCardStack({
-  current,
-  onAdvance,
-}: {
-  current: number;
-  onAdvance: () => void;
-}) {
-  const prefersReducedMotion = useReducedMotion();
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    intervalRef.current = setInterval(() => {
-      onAdvance();
-    }, INTERVAL_MS);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [prefersReducedMotion, onAdvance]);
-
-  if (prefersReducedMotion) {
-    return (
-      <div className="relative w-full h-[200px]">
-        <TeamCard member={teamMembers[0]} index={0} total={1} />
-      </div>
-    );
-  }
-
-  const visible = Array.from({ length: VISIBLE }, (_, i) => {
-    return (current + i) % teamMembers.length;
-  });
-
-  return (
-    <div className="relative w-full h-[220px]">
-      {visible.map((memberIdx, stackIdx) => (
-        <TeamCard
-          key={teamMembers[memberIdx].name}
-          member={teamMembers[memberIdx]}
-          index={VISIBLE - 1 - stackIdx}
-          total={VISIBLE}
-        />
-      ))}
-    </div>
-  );
-}
+// Map teamMembers to the CardStack card shape
+const cards = teamMembers.map((m) => ({
+  id: m.id,
+  name: `${m.icon}  ${m.name}`,
+  designation: m.designation,
+  content: (
+    <p className="text-sm text-text-secondary leading-relaxed">{m.content}</p>
+  ),
+}));
 
 export function Team() {
-  const [current, setCurrent] = useState(0);
-
-  const handleAdvance = () => {
-    setCurrent((c) => (c + 1) % teamMembers.length);
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section
@@ -192,33 +97,39 @@ export function Team() {
           </FadeIn>
         </div>
 
-        {/* Stacked card carousel */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-full max-w-sm mx-auto">
-            <TeamCardStack current={current} onAdvance={handleAdvance} />
-          </div>
-        </div>
-
-        {/* Team member dots indicator */}
-        <div className="flex justify-center gap-2 mb-12">
-          {teamMembers.map((_, i) => (
-            <div
-              key={i}
-              className="h-1.5 rounded-full transition-all duration-300"
-              style={{
-                width: i === current ? "24px" : "8px",
-                background:
-                  i === current
-                    ? "var(--accent)"
-                    : "var(--border-default)",
-              }}
+        {/* Stacked card carousel — centered */}
+        <div className="flex flex-col items-center gap-8">
+          <div className="w-full max-w-sm mx-auto">
+            <CardStack
+              items={cards}
+              offset={12}
+              scaleFactor={0.06}
             />
-          ))}
+          </div>
+
+          {/* Team member dots indicator */}
+          <div className="flex justify-center gap-2">
+            {teamMembers.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className="h-1.5 rounded-full transition-all duration-300 focus:outline-none"
+                style={{
+                  width: i === activeIndex ? "24px" : "8px",
+                  background:
+                    i === activeIndex
+                      ? "var(--accent)"
+                      : "var(--border-default)",
+                }}
+                aria-label={`View ${teamMembers[i].name}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* More agents note */}
         <FadeIn delay={0.4} direction="up" once>
-          <p className="text-center text-sm text-text-muted font-mono">
+          <p className="text-center text-sm text-text-muted font-mono mt-12">
             <span className="text-accent/60">+</span> and more specialized agents
           </p>
         </FadeIn>
