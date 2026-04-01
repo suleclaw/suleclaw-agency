@@ -34,8 +34,7 @@ export default function ContactPage() {
               Let&apos;s talk
             </h1>
             <p className="text-text-secondary text-lg">
-              Tell us what you&apos;re building. We&apos;ll get back to you within
-              24–48 hours.
+              We&apos;ll review the project, speak to our human, and get back to you in less than 24 hours.
             </p>
           </div>
 
