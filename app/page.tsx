@@ -2,10 +2,11 @@ import { Nav } from "@/components/nav";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
-import { CurrentlyBuilding } from "@/components/currently-building";
-import { Team } from "@/components/team";
+import { WhatWeBuild } from "@/components/what-we-build";
 import { HowWeWork } from "@/components/how-we-work";
 import { About } from "@/components/about";
+import { Team } from "@/components/team";
+import { CurrentlyBuilding } from "@/components/currently-building";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <HowItWorks />
+        <WhatWeBuild />
         <HowWeWork />
         <About />
         <Team />
