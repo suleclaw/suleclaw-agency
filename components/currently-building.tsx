@@ -203,11 +203,9 @@ export function CurrentlyBuilding() {
       {/* Horizontally scrolling project cards */}
       <div className="relative z-10">
         <div
-          className="flex gap-6 overflow-x-auto pb-4 px-6 snap-x snap-mandatory"
-          style={{
-            scrollbarWidth: "thin",
-            scrollbarColor: "var(--border-default) transparent",
-          }}
+          className="flex gap-6 overflow-x-auto pb-4 px-6 snap-x snap-mandatory
+                     [-ms-overflow-style:none] [scrollbar-width:none]
+                     [&::-webkit-scrollbar]:hidden"
         >
           {/* Left spacer for centering on first card */}
           <div className="shrink-0 w-[calc((100vw-1280px)/2-24px)] max-w-[1fr] hidden xl:block" />

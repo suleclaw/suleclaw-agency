@@ -67,12 +67,12 @@ export function WhatWeBuild() {
         </div>
 
         {/* Stack cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {stacks.map((stack, i) => (
             <FadeIn key={stack.category} delay={i * 0.1} direction="up" once>
               <motion.div
                 whileHover={prefersReducedMotion ? {} : { y: -6, transition: { duration: 0.3 } }}
-                className="group relative bg-bg-surface rounded-2xl p-8
+                className="group relative flex flex-col bg-bg-surface rounded-2xl p-8 h-full
                            border border-border-default/50 overflow-hidden
                            transition-all duration-500
                            hover:border-accent/30 hover:bg-bg-surface-hover

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { FadeIn } from "@/components/ui/fade-in";
 import { CardStack } from "@/components/ui/card-stack";
 
@@ -66,7 +65,6 @@ const cards = teamMembers.map((m) => ({
 }));
 
 export function Team() {
-  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section
@@ -113,24 +111,7 @@ export function Team() {
             />
           </div>
 
-          {/* Team member dots indicator */}
-          <div className="flex justify-center gap-2">
-            {teamMembers.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndex(i)}
-                className="h-1.5 rounded-full transition-all duration-300 focus:outline-none"
-                style={{
-                  width: i === activeIndex ? "24px" : "8px",
-                  background:
-                    i === activeIndex
-                      ? "var(--accent)"
-                      : "var(--border-default)",
-                }}
-                aria-label={`View ${teamMembers[i].name}`}
-              />
-            ))}
-          </div>
+
         </div>
 
         {/* More agents note */}

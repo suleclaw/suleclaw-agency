@@ -80,10 +80,10 @@ export function HowItWorks() {
                   duration: 0.6,
                   ease: [0.4, 0, 0.2, 1] as const,
                 }}
-                className="relative group"
+                className="relative group flex flex-col"
               >
                 {/* Card background */}
-                <div className="relative bg-bg-surface rounded-2xl p-8 lg:p-10
+                <div className="relative flex flex-col bg-bg-surface rounded-2xl p-8 lg:p-10 w-full
                              border border-border-default/50 overflow-hidden
                              transition-all duration-500 ease-out
                              hover:border-accent/30 hover:bg-bg-surface-hover
