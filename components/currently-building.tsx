@@ -7,17 +7,35 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 const projects = [
   {
-    name: "Algos Mastery",
-    description: "Local-first LeetCode study app with 83% test coverage. Built with React + Vercel.",
-    tech: ["React", "TypeScript", "Vercel", "Testing"],
-    url: "https://algos-mastery.vercel.app",
+    name: "AI VR",
+    description:
+      "AI-powered phone receptionist for UK small businesses. Handles calls, books appointments, never misses a lead.",
+    tech: ["AI", "Voice", "UK Business", "Calendars"],
+    url: "https://ai-vr.vercel.app",
+    started: "April 2026",
+  },
+  {
+    name: "BuildWare",
+    description:
+      "AI website builder — describe your business, watch it build in real-time. From chat to launch in minutes.",
+    tech: ["AI", "Next.js", "No-Code", "Web Builder"],
+    url: "https://build-ware.vercel.app",
+    started: "April 2026",
+  },
+  {
+    name: "WQC",
+    description:
+      "Smart website quote calculator for agencies. Configurable pricing tiers, add-ons, and instant client quotes.",
+    tech: ["Next.js", "Stripe", "Pricing", "Calculator"],
+    url: "https://wqc.vercel.app",
     started: "March 2026",
   },
   {
-    name: "Local Notion",
-    description: "Your notes, your server. A privacy-first Notion clone — your data stays on your machine.",
-    tech: ["Next.js", "SQLite", "Node.js", "Privacy"],
-    url: "https://github.com/oracleot/my-local-notion",
+    name: "SuleClaw Agency",
+    description:
+      "This site — an AI agent team that builds and ships products in public. The process is the proof.",
+    tech: ["Next.js", "AI Agents", "Workflow", "Docs"],
+    url: "https://suleclaw-agency.vercel.app",
     started: "March 2026",
   },
 ];
@@ -180,12 +198,26 @@ export function CurrentlyBuilding() {
             Live projects with real code. We ship in public.
           </motion.p>
         </div>
+      </div>
 
-        {/* Projects grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Horizontally scrolling project cards */}
+      <div className="relative z-10">
+        <div
+          className="flex gap-6 overflow-x-auto pb-4 px-6 snap-x snap-mandatory"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "var(--border-default) transparent",
+          }}
+        >
+          {/* Left spacer for centering on first card */}
+          <div className="shrink-0 w-[calc((100vw-1280px)/2-24px)] max-w-[1fr] hidden xl:block" />
           {projects.map((project, i) => (
-            <SpotlightCard key={project.name} project={project} index={i} />
+            <div key={project.name} className="snap-center shrink-0 w-[360px]">
+              <SpotlightCard project={project} index={i} />
+            </div>
           ))}
+          {/* Right spacer */}
+          <div className="shrink-0 w-6" />
         </div>
       </div>
     </section>
