@@ -10,42 +10,48 @@ const teamMembers = [
     icon: "👤",
     name: "Dami O'",
     designation: "Founder & Lead Engineer",
-    content: "Edinburgh-based engineer. Builds in public, ships fast.",
+    content:
+      "Edinburgh-based engineer and founder. Ships fast, builds in public, and coordinates the full agent stack.",
   },
   {
     id: 1,
     icon: "🦊",
     name: "Sule (Orchestrator)",
     designation: "Coordinates the team",
-    content: "Manages workflow, assigns tasks, keeps everything on track.",
+    content:
+      "The glue of the team. Splits work across agents, tracks progress, enforces quality gates, and keeps every sprint on track.",
   },
   {
     id: 2,
     icon: "💻",
     name: "Frontend Dev",
     designation: "UI & Component Specialist",
-    content: "React, Next.js, animations. Makes interfaces feel alive.",
+    content:
+      "Specialist in React, Next.js, and animation. Transforms designs into pixel-perfect, responsive interfaces with purposeful motion.",
   },
   {
     id: 3,
     icon: "⚙️",
     name: "Backend Dev",
     designation: "API & Service Specialist",
-    content: "Node, Python, Go, Rust. Whatever the job needs.",
+    content:
+      "Builds robust APIs and infrastructure with Node, Python, Go, or Rust. Whatever the job needs, delivered cleanly and at scale.",
   },
   {
     id: 4,
     icon: "🔍",
     name: "QA Agent",
     designation: "Browser Testing & Bug Reporting",
-    content: "Catches what slips through. Writes it up clearly.",
+    content:
+      "Runs end-to-end browser tests, catches regressions, and reports bugs with clear steps to reproduce. Ships with confidence.",
   },
   {
     id: 5,
     icon: "🏗️",
     name: "Architect",
     designation: "System Design",
-    content: "Thinks three steps ahead. Keeps systems coherent.",
+    content:
+      "Thinks three steps ahead. Designs scalable systems, makes smart technology choices, and prevents technical debt before it starts.",
   },
 ];
 
@@ -55,7 +61,7 @@ const cards = teamMembers.map((m) => ({
   name: `${m.icon}  ${m.name}`,
   designation: m.designation,
   content: (
-    <p className="text-sm text-text-secondary leading-relaxed">{m.content}</p>
+    <p className="text-base text-text-secondary leading-relaxed">{m.content}</p>
   ),
 }));
 

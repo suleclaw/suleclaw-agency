@@ -42,11 +42,11 @@ export const CardStack = ({
   }, [startFlipping]);
 
   return (
-    <div className="relative h-60 w-60 md:h-60 md:w-96">
+    <div className="relative h-[280px] w-full max-w-sm mx-auto">
       {cards.map((card, index) => (
         <motion.div
           key={card.id}
-          className="absolute inset-0 rounded-3xl p-4 shadow-xl
+          className="absolute inset-0 rounded-3xl p-6 shadow-xl
                      bg-bg-surface border border-border-default/50
                      flex flex-col justify-between"
           style={{ transformOrigin: "top center" }}
@@ -58,8 +58,8 @@ export const CardStack = ({
         >
           <div className="text-text-secondary">{card.content}</div>
           <div>
-            <p className="text-text-primary font-medium">{card.name}</p>
-            <p className="text-text-muted text-sm">{card.designation}</p>
+            <p className="text-text-primary font-semibold text-base">{card.name}</p>
+            <p className="text-text-muted text-xs font-mono uppercase tracking-wide">{card.designation}</p>
           </div>
         </motion.div>
       ))}
