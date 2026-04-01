@@ -52,9 +52,6 @@ export function HowItWorks() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
           >
-            <span className="text-xs font-mono text-accent uppercase tracking-widest mb-4 block">
-              Process
-            </span>
             <h2 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl text-text-primary leading-tight">
               How it works
             </h2>
@@ -111,7 +108,7 @@ export function HowItWorks() {
                   {/* Content */}
                   <div className="relative z-10">
                     <h3 className="font-headline font-bold text-xl text-text-primary mb-3
-                                 transition-colors duration-300 group-hover:text-white">
+                                 transition-colors duration-300">
                       {step.title}
                     </h3>
                     <p className="text-sm text-text-secondary leading-relaxed">

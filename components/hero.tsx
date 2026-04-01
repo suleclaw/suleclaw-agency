@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Magnetic } from "@/components/ui/magnetic";
 
 const headlineWords = ["You're", "one", "person.", "You", "have", "a", "company's", "worth", "of", "work."];
-const subheadlineWords = ["What", "if", "you", "had", "a", "team", "—", "built", "for", "how", "you", "actually", "work?"];
+const subheadlineWords = ["What", "if", "you", "had", "a", "team", "built", "for", "how", "you", "actually", "work?"];
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();

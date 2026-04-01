@@ -61,7 +61,7 @@ function SpotlightCard({
           <div className="flex items-start justify-between mb-6">
             <div>
               <h3 className="font-headline font-bold text-xl text-text-primary mb-1
-                           transition-colors duration-300 group-hover:text-white">
+                           transition-colors duration-300">
                 {project.name}
               </h3>
               <span className="text-xs font-mono text-text-muted uppercase tracking-wider">
