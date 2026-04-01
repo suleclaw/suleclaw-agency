@@ -44,7 +44,7 @@ export function About() {
 
               <div className="space-y-6 text-base text-text-secondary leading-relaxed">
                 <p>
-                  I&apos;m Damilola — an engineer based in Edinburgh who got tired of
+                  I&apos;m Dami O&apos; — an engineer based in Edinburgh who got tired of
                   building the same things over and over. Every solo founder has the
                   same problem: too many hats, too few hours.
                 </p>

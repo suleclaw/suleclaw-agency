@@ -6,7 +6,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <NextThemesProvider
       attribute="data-theme"
-      defaultTheme="industrial"
+      defaultTheme="paper"
       enableSystem={false}
       disableTransitionOnChange={false}
       themes={["industrial", "paper", "terminal", "neon"]}

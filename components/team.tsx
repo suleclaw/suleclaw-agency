@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 const teamMembers = [
   {
     icon: "👤",
-    name: "Damilola",
+    name: "Dami O'",
     role: "Founder & Lead Engineer",
     description: "Edinburgh-based engineer. Builds in public, ships fast.",
   },
@@ -86,12 +86,36 @@ export function Team() {
                   transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] }
                 }}
                 className="group relative"
+                style={{
+                  transform: `rotate(${index % 2 === 0 ? -1 : 1}deg)`,
+                  zIndex: index,
+                }}
               >
                 <div className="relative bg-bg-surface rounded-2xl p-8
                              border border-border-default/50 overflow-hidden
                              transition-all duration-500 ease-out
                              hover:border-accent/30 hover:bg-bg-surface-hover
                              glow-border corner-brackets">
+
+                  {/* Pile effect - shadow layers behind */}
+                  {index > 0 && (
+                    <div
+                      className="absolute inset-0 rounded-2xl bg-bg-surface border border-border-default/30"
+                      style={{
+                        transform: `translateY(${index * -4}px) translateX(${index * 2}px) rotate(${index * 0.5}deg)`,
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
+                  {index > 1 && (
+                    <div
+                      className="absolute inset-0 rounded-2xl bg-bg-surface border border-border-default/20"
+                      style={{
+                        transform: `translateY(${index * -8}px) translateX(${index * 4}px) rotate(${index * 0.5}deg)`,
+                        zIndex: -2,
+                      }}
+                    />
+                  )}
 
                   {/* Decorative corner elements */}
                   <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden pointer-events-none">
@@ -106,7 +130,7 @@ export function Team() {
 
                   {/* Name */}
                   <h3 className="font-headline font-bold text-lg text-text-primary mb-1
-                               transition-colors duration-300 group-hover:text-white">
+                               transition-colors duration-300">
                     {member.name}
                   </h3>
 
@@ -128,6 +152,13 @@ export function Team() {
             </FadeIn>
           ))}
         </div>
+
+        {/* More agents note */}
+        <FadeIn delay={0.5} direction="up" once>
+          <p className="text-center mt-12 text-sm text-text-muted font-mono">
+            <span className="text-accent/60">+</span> and 4 more specialized agents
+          </p>
+        </FadeIn>
       </div>
     </section>
   );

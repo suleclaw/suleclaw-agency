@@ -105,7 +105,7 @@ export function ThemeSwitcher() {
         aria-label="Switch theme"
         className={cn(
           "fixed right-4 top-1/2 -translate-y-1/2 z-40",
-          "flex items-center justify-center w-10 h-10 rounded-full",
+          "flex items-center justify-center w-12 h-12 rounded-full",
           "bg-bg-surface/90 backdrop-blur-md border border-border-default",
           "shadow-lg transition-all duration-200",
           "hover:border-border-strong hover:shadow-xl",
@@ -113,7 +113,20 @@ export function ThemeSwitcher() {
         )}
         style={{ boxShadow: "var(--shadow-card)" }}
       >
-        <span className="transition-transform duration-200" style={{ transform: open ? "rotate(30deg)" : "rotate(0deg)" }}>
+        {/* Ripple pulse ring */}
+        <span
+          className="absolute inset-0 rounded-full animate-ping opacity-30"
+          style={{
+            background: "transparent",
+            border: "1.5px solid var(--accent)",
+            animationDuration: "2.5s",
+            animationTimingFunction: "ease-out",
+          }}
+        />
+        <span
+          className="transition-transform duration-200"
+          style={{ transform: open ? "rotate(30deg)" : "rotate(0deg)" }}
+        >
           {active?.icon}
         </span>
       </button>
