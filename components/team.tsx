@@ -9,9 +9,9 @@ const teamMembers = [
     id: 0,
     icon: "👤",
     name: "Dami O'",
-    designation: "Creator and Lead Engineer",
+    designation: "Creator and Strategist",
     content:
-      "Edinburgh-based engineer and founder. Ships fast, builds in public, and coordinates the full agent stack.",
+      "Edinburgh-based creator and strategist. Defines the vision, runs the workflow, and ships products that actually make sense.",
   },
   {
     id: 1,
