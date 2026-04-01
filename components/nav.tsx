@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/magnetic";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const navLinks = [
   { href: "#how-we-work", label: "How We Work" },
@@ -48,8 +47,7 @@ export function Nav() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <ThemeSwitcher />
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -107,8 +105,6 @@ export function Nav() {
         )}
       >
         <div className="flex flex-col items-center gap-6 p-8">
-          <ThemeSwitcher />
-          <div className="w-px h-6 bg-border-default" />
           {navLinks.map((link, i) => (
             <Link
               key={link.href}

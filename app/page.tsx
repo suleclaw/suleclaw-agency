@@ -1,4 +1,5 @@
 import { Nav } from "@/components/nav";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
 import { CurrentlyBuilding } from "@/components/currently-building";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Nav />
+      <ThemeSwitcher />
       <main>
         <Hero />
         <HowItWorks />
