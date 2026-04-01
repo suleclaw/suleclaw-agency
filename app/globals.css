@@ -254,6 +254,7 @@
   html {
     @apply font-sans scroll-smooth;
     font-family: var(--font-body-family);
+    scroll-behavior: smooth;
   }
 
   body {
