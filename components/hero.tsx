@@ -166,7 +166,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: prefersReducedMotion ? 0 : 1.2, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mt-16"
+          className="mt-24 sm:mt-28 md:mt-36"
         >
           <Magnetic strength={0.25} className="inline-block">
             <Link
