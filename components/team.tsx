@@ -1,7 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FadeIn } from "@/components/ui/fade-in";
-import { CardStack } from "@/components/ui/card-stack";
+
+const CardStack = dynamic(
+  () => import("@/components/ui/card-stack").then((m) => m.CardStack),
+  { ssr: false }
+);
 
 const teamMembers = [
   {
