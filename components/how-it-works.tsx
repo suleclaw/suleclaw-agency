@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 import { MessageSquare, Users, Rocket } from "lucide-react";
 

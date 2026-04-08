@@ -42,6 +42,20 @@ export const metadata: Metadata = {
   description:
     "SuleClaw Agency builds AI agent teams that work alongside solo founders and small companies — multiplying what you can ship.",
   keywords: ["AI agents", "software development", "solo founders", "agent teams"],
+  openGraph: {
+    title: "SuleClaw Agency — AI Agent Teams for Founders",
+    description:
+      "SuleClaw Agency builds AI agent teams that work alongside solo founders and small companies — multiplying what you can ship.",
+    url: "https://suleclaw-agency.vercel.app",
+    siteName: "SuleClaw Agency",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SuleClaw Agency — AI Agent Teams for Founders",
+    description:
+      "SuleClaw Agency builds AI agent teams that work alongside solo founders and small companies — multiplying what you can ship.",
+  },
 };
 
 export default function RootLayout({
@@ -55,7 +69,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${instrumentSans.variable} ${jetbrainsMono.variable} ${syne.variable} ${playfair.variable} ${orbitron.variable}`}
     >
-      <body className="min-h-full flex flex-col antialiased scanlines">
+      <body className="min-h-full flex flex-col antialiased">
         <ThemeProvider>
           {children}
         </ThemeProvider>

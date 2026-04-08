@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 interface SpotlightProps {
   children: React.ReactNode;

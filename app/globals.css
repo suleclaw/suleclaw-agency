@@ -257,6 +257,11 @@
     scroll-behavior: smooth;
   }
 
+  /* Anchor sections: offset sticky nav (h-16 = 64px) */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
   body {
     @apply antialiased;
     background-color: var(--bg-base);
@@ -299,9 +304,9 @@
 }
 
 /* ============================================================
-   TERMINAL THEME — Scanlines overlay
+   TERMINAL THEME — Scanlines overlay (CSS-only, no extra class needed)
    ============================================================ */
-[data-theme="terminal"] .scanlines::after {
+[data-theme="terminal"]::after {
   content: '';
   position: fixed;
   inset: 0;
